@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-		return quertyInterface.createTable('Users', {
+		return queryInterface.createTable('Users', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,

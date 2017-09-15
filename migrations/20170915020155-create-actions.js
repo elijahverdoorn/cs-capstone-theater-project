@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-		return quertyInterface.createTable('Actions', {
+		return queryInterface.createTable('Actions', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = {
 				type: Sequelize.STRING
 			},
 			duration: {
-				type: Sequelize.Decimal
+				type: Sequelize.DECIMAL
 			},
 			name: {
 				type: Sequelize.STRING

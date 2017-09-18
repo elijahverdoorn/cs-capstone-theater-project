@@ -2,9 +2,9 @@
 
 module.exports = (sequelize, DataTypes) => {
 	const Cues = sequelize.define('Cues', {
-		name: DataTypes.STRING
+		name: DataTypes.STRING,
 		sequenceNum: DataTypes.INTEGER,
-		description: DataTypes.STRING,
+		description: DataTypes.TEXT,
 	}, {
 		freezeTableName: true
 	})

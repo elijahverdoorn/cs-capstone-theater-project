@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
 		address: DataTypes.STRING,
 		duration: DataTypes.DECIMAL,
 		name: DataTypes.STRING,
-		description: DataTypes.STRING
+		description: DataTypes.TEXT
 	}, {
 		freezeTableName: true
 	})

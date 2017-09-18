@@ -4,6 +4,8 @@ import bodyParser from 'body-parser'
 import models from './models'
 import moment from 'moment'
 
+import actions from './routes/action'
+
 const app = express()
 
 app.use(bodyParser.json())
@@ -18,6 +20,15 @@ app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Credentials', true)
 	next()
 })
+
+// API routes
+// app.use('/play', routes.play)
+app.use('/action', actions)
+// app.use('/actiontype', routes.actionType)
+// app.use('/cue', routes.cue)
+// app.use('/device', routes.device)
+// app.use('/show', routes.show)
+// app.use('/user', routes.user)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

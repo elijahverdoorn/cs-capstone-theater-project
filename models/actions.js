@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
 		name: DataTypes.STRING,
 		description: DataTypes.TEXT
 	}, {
-		freezeTableName: true
+		freezeTableName: true,
+		timestamps: true
 	})
 
 	Actions.associate = (models) => {

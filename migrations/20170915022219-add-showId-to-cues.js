@@ -1,19 +1,22 @@
-'use strict';
+'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-		queryInterface.addColumn('Cues', 'showId', Sequelize.INTEGER, {
-			allowNull: false,
+	up: (queryInterface, Sequelize) => {
+		queryInterface.addConstraint('Cues', ['showId'], {
+			type: 'FOREIGN KEY',
+			name: 'cues_showId_FK',
 			references: {
-				model: 'Shows',
-				key: 'id'
+				table: 'Shows',
+				field: 'id'
 			},
-			onUpdate: 'CASCADE',
-			onDelete: 'SET NULL'
-		})
-  },
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE'
+		}
+		)
+	},
 
-  down: (queryInterface, Sequelize) => {
-		queryInterface.removeColumn('Cues', 'showId')
-  }
+	down: (queryInterface, Sequelize) => {
+		queryInterface.removeConstraint('Cues', 'cues_showId_FK')
+	}
 }
+

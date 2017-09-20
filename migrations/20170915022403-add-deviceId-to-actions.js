@@ -2,19 +2,21 @@
 
 module.exports = {
 	up: (queryInterface, Sequelize) => {
-		queryInterface.addColumn('Actions', 'deviceId', Sequelize.INTEGER, {
-			allowNull: false,
+		queryInterface.addConstraint('Actions', ['deviceId'], {
+			type: 'FOREIGN KEY',
+			name: 'actions_deviceId_FK',
 			references: {
-				model: 'Devices',
-				key: 'id'
+				table: 'Devices',
+				field: 'id'
 			},
-			onUpdate: 'CASCADE',
-			onDelete: 'SET NULL'
-		})
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE'
+		}
+		)
 	},
 
 	down: (queryInterface, Sequelize) => {
-		queryInterface.removeColumn('Actions', 'deviceId')
+		queryInterface.removeConstraint('Actions', 'actions_deviceId_FK')
 	}
 }
 

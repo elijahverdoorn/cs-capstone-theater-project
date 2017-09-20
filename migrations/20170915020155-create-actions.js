@@ -28,6 +28,18 @@ module.exports = {
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE
+			},
+			cueId: {
+				allowNull: false,
+				type: Sequelize.INTEGER
+			},
+			actionTypeId: {
+				allowNull: false,
+				type: Sequelize.INTEGER
+			},
+			deviceId: {
+				allowNull: false,
+				type: Sequelize.INTEGER
 			}
 		})
   },

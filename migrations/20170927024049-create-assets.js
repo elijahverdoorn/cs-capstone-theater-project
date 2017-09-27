@@ -20,6 +20,12 @@ module.exports = {
 			},
 			showId: {
 				type: Sequelize.INTEGER
+			},
+			createdAt: {
+				type: Sequelize.DATE
+			},
+			updatedAt: {
+				type: Sequelize.DATE
 			}
 		})
   },

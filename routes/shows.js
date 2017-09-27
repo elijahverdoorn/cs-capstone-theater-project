@@ -4,12 +4,17 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:showId?', async (req, res) => {
-	let shows = await models.Shows.findAll({
-		where: {
-			id: (req.params.showId == null) ? '*' : req.params.showId
-		}
-	})
-	res.send(shows)
+	if (rea.params.showId) {
+		let shows = await models.Shows.findAll({
+			where: {
+				id: req.params.showId
+			}
+		})
+		res.send(shows)
+	} else {
+		let shows = await models.Shows.findAll()
+		res.send(shows)
+	}
 })
 
 router.post('/', async (req, res) => {

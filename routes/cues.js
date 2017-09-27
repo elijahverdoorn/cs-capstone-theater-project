@@ -4,12 +4,17 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:cueId?', async (req, res) => {
-	let cues = await models.Cues.findAll({
-		where: {
-			id: (req.params.cueId == null) ? '*' : req.params.cueId
-		}
-	})
-	res.send(cues)
+	if (req.params.cueId) {
+		let cues = await models.Cues.findAll({
+			where: {
+				id: req.params.cueId
+			}
+		})
+		res.send(cues)
+	} else {
+		let cues = await models.Cues.findAll()
+		res.send(cues)
+	}
 })
 
 router.post('/', async (req, res) => {

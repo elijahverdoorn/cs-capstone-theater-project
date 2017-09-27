@@ -2,7 +2,6 @@
 
 module.exports = (sequelize, DataTypes) => {
 	const Assets = sequelize.define('Assets', {
-		id: DataTypes.INTEGER,
 		name: DataTypes.STRING,
 		path: DataTypes.STRING,
 		assetTypeId: DataTypes.STRING,
@@ -13,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 	})
 
 	Assets.associate = (models) => {
-		Assets.belongsTo(models.Show, { as: 'show' })
+		Assets.belongsTo(models.Shows, { as: 'show' })
 	}
 
 	return Assets

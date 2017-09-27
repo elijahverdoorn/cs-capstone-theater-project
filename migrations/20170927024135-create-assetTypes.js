@@ -11,6 +11,9 @@ module.exports = {
 			},
 			name: {
 				type: Sequelize.STRING
+			},
+			mime: {
+				type: Sequelize.STRING
 			}
 		})
   },

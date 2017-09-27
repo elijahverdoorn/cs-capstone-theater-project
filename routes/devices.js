@@ -4,12 +4,17 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:deviceId?', async (req, res) => {
-	let devices = await models.Devices.findAll({
-		where: {
-			id: (req.params.deviceId == null) ? '*' : req.params.deviceId
-		}
-	})
-	res.send(devices)
+	if (req.params.deviceId) {
+		let devices = await models.Devices.findAll({
+			where: {
+				id: req.params.deviceId
+			}
+		})
+		res.send(devices)
+	} else {
+		let devices = await models.Devices.findAll()
+		res.send(devices)
+	}
 })
 
 router.post('/', async (req, res) => {

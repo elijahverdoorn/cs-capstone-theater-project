@@ -4,12 +4,17 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:actionTypeId?', async (req, res) => {
-	let actions = await models.ActionTypes.findAll({
-		where: {
-			id: (req.params.actionTypeId == null) ? '*' : req.params.actionTypeId
-		}
-	})
-	res.send(actions)
+	if (req.params.actionTypeId) {
+		let actions = await models.ActionTypes.findAll({
+			where: {
+				id: req.params.actionTypeId
+			}
+		})
+		res.send(actions)
+	} else {
+		let actions = await models.ActionTypes.findAll()
+		res.send(actions)
+	}
 })
 
 router.post('/', async (req, res) => {

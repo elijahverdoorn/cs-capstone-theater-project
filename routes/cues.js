@@ -30,9 +30,9 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:cueId', async (req, res) => {
-	let cue = models.Cues.find({
+	let cue = await models.Cues.find({
 		where: {
-			id: req.query.cueId
+			id: req.params.cueId
 		}
 	})
 	.error((err) => {
@@ -46,6 +46,7 @@ router.patch('/:cueId', async (req, res) => {
 	cue.name = req.query.name || cue.name
 	cue.description = req.query.description || cue.description
 	cue.sequenceNum = req.query.sequenceNum || cue.sequenceNum
+	console.log('saving cue')
 	await cue.save()
 	res.sendStatus(202)
 })

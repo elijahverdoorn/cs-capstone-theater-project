@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
 	}
 
 	let assetFile = req.files.assetFile
-	let assetType = await getAssetTypeFromMimeType(assetFile.mimetype)
+	let assetType = getAssetTypeFromMimeType(assetFile.mimetype)
 
 	// make sure that the directory exists
 	let assetDirectory = `${USER_FILE_STORAGE_PATH}/${req.params.showId}/${assetType.dataValues.id}`

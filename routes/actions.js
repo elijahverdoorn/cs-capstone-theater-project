@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:actionId?', async (req, res) => {
-	if (req.params.actionId) {
+	if (req.params && req.params.actionId) {
 		let actions = await models.Actions.findAll({
 			where: {
 				id: req.params.actionId

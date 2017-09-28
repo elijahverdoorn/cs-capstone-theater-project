@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:deviceId?', async (req, res) => {
-	if (req.params.deviceId) {
+	if (req.params && req.params.deviceId) {
 		let devices = await models.Devices.findAll({
 			where: {
 				id: req.params.deviceId

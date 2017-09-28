@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:cueId?', async (req, res) => {
-	if (req.params.cueId) {
+	if (req.params && req.params.cueId) {
 		let cues = await models.Cues.findAll({
 			where: {
 				id: req.params.cueId

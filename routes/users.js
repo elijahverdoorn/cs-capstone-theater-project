@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:userId?', async (req, res) => {
-	if (req.params.userId) {
+	if (req.params && req.params.userId) {
 		let users = await models.Users.findAll({
 			where: {
 				id: req.params.userId

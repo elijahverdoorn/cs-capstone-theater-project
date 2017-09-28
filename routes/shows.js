@@ -29,9 +29,9 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:showId', async (req, res) => {
-	let show = models.Shows.find({
+	let show = await models.Shows.find({
 		where: {
-			id: req.query.showId
+			id: req.params.showId
 		}
 	})
 	.error((err) => {

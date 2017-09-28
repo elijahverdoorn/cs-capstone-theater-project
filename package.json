@@ -5,8 +5,8 @@
 	"repository": "https://stogit.cs.stolaf.edu/cap-f17/theater",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
-    "start": "babel-node server.js",
+    "test": "set NODE_ENV=test && jest",
+    "start": "set NODE_ENV=development && babel-node server.js",
     "db:migrate:up": "sequelize db:migrate",
     "db:migrate:down": "sequelize db:migrate:undo:all"
   },

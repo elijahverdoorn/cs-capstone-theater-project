@@ -2,10 +2,10 @@
   "name": "cs-capstone",
   "version": "0.0.1",
   "description": "Elijah, David & Deandre's Senior Capstone in Computer Science Project. Fall 2017.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node app.js",
+    "start": "babel-node server.js",
     "db:migrate:up": "sequelize db:migrate",
     "db:migrate:down": "sequelize db:migrate:undo:all"
   },

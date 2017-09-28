@@ -45,7 +45,7 @@ describe('Test /shows route', () => {
 		expect(response.statusCode).toBe(201)
 	})
 
-	test('It should respond 201 to POST', async () => {
+	test('It should insert a record on POST', async () => {
 		const director = 'POST_TEST'
 		const name = 'Test show 2'
 		const response = await request(app)
@@ -63,7 +63,7 @@ describe('Test /shows route', () => {
 		expect(newQuery.dataValues.name).toBe(name)
 	})
 
-	test('It should respond 201 to PATCH', async () => {
+	test('It should respond 202 to PATCH', async () => {
 		const newShowName = 'new test name'
 		const newShowDirector = 'new director'
 		const response = await request(app)
@@ -73,6 +73,18 @@ describe('Test /shows route', () => {
 				director: newShowDirector
 			})
 		expect(response.statusCode).toBe(202)
+	})
+
+	test('It should update a record on PATCH', async () => {
+		const nsn = 'another name 2'
+		const response = await request(app)
+			.patch('/shows/' + testShowId)
+			.query({
+				name: nsn
+			})
+
+		const data = await models.Shows.findById(testShowId)
+		expect(data.dataValues.name).toBe(nsn)
 	})
 
 	test('It should respond 202 to DELETE', async () => {

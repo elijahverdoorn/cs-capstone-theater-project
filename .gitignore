@@ -4,6 +4,9 @@
 # Node files
 node_modules
 
+# Documentation
+doc
+
 # Real config files
 # (if you need to make a config file, leave the fields blank, name it config.sample.* and commit that - don't commit actual configs)
 config.js

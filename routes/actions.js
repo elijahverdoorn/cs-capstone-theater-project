@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:actionId', async (req, res) => {
-	let action = models.Actions.find({
+	let action = await models.Actions.find({
 		where: {
 			id: req.params.actionId
 		}

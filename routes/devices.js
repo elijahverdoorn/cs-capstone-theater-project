@@ -30,9 +30,9 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:deviceId', async (req, res) => {
-	let device = models.Devices.find({
+	let device = await models.Devices.find({
 		where: {
-			id: req.query.deviceId
+			id: req.params.deviceId
 		}
 	})
 	.error((err) => {

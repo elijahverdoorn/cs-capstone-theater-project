@@ -21,7 +21,8 @@ router.post('/', async (req, res) => {
 	let devices = await models.Devices.create({
 		name: req.query.name,
 		description: req.query.description,
-		address: req.query.address
+		address: req.query.address,
+		showId: req.query.showId
 	})
 	.error(() => {
 		res.sendStatus(500)
@@ -46,6 +47,7 @@ router.patch('/:deviceId', async (req, res) => {
 	device.name = req.query.name || device.name
 	device.description = req.query.description || device.description
 	device.address = req.query.address || device.address
+	device.showId = req.query.showId || device.showId
 	await device.save()
 	res.sendStatus(202)
 })

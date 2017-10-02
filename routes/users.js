@@ -31,9 +31,9 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:userId', async (req, res) => {
-	let user = models.Users.find({
+	let user = await models.Users.find({
 		where: {
-			id: req.query.userId
+			id: req.params.userId
 		}
 	})
 	.error((err) => {

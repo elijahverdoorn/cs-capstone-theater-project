@@ -10,7 +10,7 @@ describe('Test /actions route', () => {
 
 	const actionName = 'test action'
 	const actionDescription = 'test description'
-	const actionDuration = 'test duration'
+	const actionDuration = 1.0
 	const actionAddress = 'test address'
 	const actionId = 1
 	let cueId = -1

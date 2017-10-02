@@ -22,7 +22,7 @@ function getAssetTypeFromMimeType(mimetype) {
 }
 
 /**
- * @api {post} /action/:actionId Request action information
+ * @api {post} /upload/ Create a new file in the filesystem for serving to a user
  * @apiName PostFile
  * @apiGroup File
  *

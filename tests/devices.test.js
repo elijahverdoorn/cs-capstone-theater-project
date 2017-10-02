@@ -1,6 +1,7 @@
 import request from 'supertest'
 import app from '../app'
 import models from '../models'
+import insertShow from './lib/insertShow'
 
 describe('Test /devices route', () => {
 
@@ -8,6 +9,7 @@ describe('Test /devices route', () => {
 	const deviceDescription = 'test description'
 	const deviceAddress = 'test address'
 	const deviceId = 1
+	let showId = -1
 
 	// run once, before any test in this test block is run.
 	// use this to set up the testing environment
@@ -16,12 +18,14 @@ describe('Test /devices route', () => {
 		await models.Devices.destroy({
 			where: {}
 		})
+		showId = await insertShow()
 		// make sure that it has at least one row
 		return models.Devices.create({
 			id: deviceId,
 			name: deviceName,
 			description: deviceDescription,
-			address: deviceAddress
+			address: deviceAddress,
+			showId: showId
 		})
 	})
 
@@ -42,7 +46,8 @@ describe('Test /devices route', () => {
 			.post('/devices')
 			.query({
 				name: newDeviceName,
-				description: newDeviceDescription
+				description: newDeviceDescription,
+				showId: showId
 			})
 		expect(response.statusCode).toBe(201)
 	})
@@ -55,7 +60,8 @@ describe('Test /devices route', () => {
 			.post('/devices')
 			.query({
 				name: newDeviceName,
-				description: newDeviceDescription
+				description: newDeviceDescription,
+				showId: showId
 			})
 		const newQuery = await models.Devices.findOne({
 			where: {
@@ -64,6 +70,7 @@ describe('Test /devices route', () => {
 		})
 		expect(newQuery.dataValues.name).toBe(newDeviceName)
 		expect(newQuery.dataValues.description).toBe(newDeviceDescription)
+		expect(newQuery.dataValues.showId).toBe(showId)
 	})
 
 	test('It should respond 202 to PATCH', async () => {
@@ -101,7 +108,8 @@ describe('Test /devices route', () => {
 			id: deviceId,
 			name: deviceName,
 			description: deviceDescription,
-			address: deviceAddress
+			address: deviceAddress,
+			showId: showId
 		})
 		const response = await request(app)
 			.delete('/Devices/' + deviceId)

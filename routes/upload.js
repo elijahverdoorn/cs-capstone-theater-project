@@ -21,6 +21,17 @@ function getAssetTypeFromMimeType(mimetype) {
 	})
 }
 
+/**
+ * @api {post} /upload/ Create a new file in the filesystem for serving to a user
+ * @apiName PostFile
+ * @apiGroup File
+ *
+ * @apiParam {File} assetFile The file that the user is uploading
+ * @apiParam {Number} showId The show that this file should be associated with
+ *
+ * @apiSuccess 200 Asset stored, database record created
+ * @apiError 500 Error saving file, or error creating database record to track files
+ */
 router.post('/', (req, res) => {
 	if (!req.files) {
 		// there are no files

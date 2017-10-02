@@ -3,6 +3,20 @@ import express from 'express'
 
 const router = express.Router()
 
+/**
+ * @api {get} /action/:actionId Request action information
+ * @apiName GetAction
+ * @apiGroup Action
+ *
+ * @apiParam {Number} actionId Action's unique ID
+ *
+ * @apiSuccess {String} address The address of the action
+ * @apiSuccess {String} name The name of the action
+ * @apiSuccess {String} description A description of the action
+ * @apiSuccess {Number} duration Duration, in seconds, of the action
+ *
+ * @apiError 404 The id of the action was not found
+ */
 router.get('/:actionId?', async (req, res) => {
 	if (req.params && req.params.actionId) {
 		let actions = await models.Actions.findAll({
@@ -17,6 +31,20 @@ router.get('/:actionId?', async (req, res) => {
 	}
 })
 
+/**
+ * @api {post} /action/ Create new action record
+ * @apiName PostAction
+ * @apiGroup Action
+ *
+ *
+ * @apiParam {String} address The address of the action
+ * @apiParam {String} name The name of the action
+ * @apiParam {String} description A description of the action
+ *
+ * @apiError 500 Failed to create record in database
+ *
+ * @apiSuccess 201 The record was created
+ */
 router.post('/', async (req, res) => {
 	let actions = await models.Actions.create({
 		address: req.query.address,
@@ -33,6 +61,23 @@ router.post('/', async (req, res) => {
 	res.sendStatus(201)
 })
 
+
+/**
+ * @api {patch} /action/:actionId Modify action information
+ * @apiName PatchAction
+ * @apiGroup Action
+ *
+ * @apiParam {Number} actionId Action's unique ID
+ * @apiParam {String} address (optional) The address of the action
+ * @apiParam {String} name (optional) The name of the action
+ * @apiParam {String} description (optional) A description of the action
+ * @apiParam {Number} duration (optional) Duration, in seconds, of the action
+ *
+ * @apiSuccess 202 The record was updated
+ *
+ * @apiError 404 The id of the action was not found
+ * @apiError 500 Internal server error while updating record
+ */
 router.patch('/:actionId', async (req, res) => {
 	let action = await models.Actions.find({
 		where: {
@@ -58,6 +103,17 @@ router.patch('/:actionId', async (req, res) => {
 	res.sendStatus(202)
 })
 
+/**
+ * @api {delete} /action/:actionId Delete action information
+ * @apiName DeleteAction
+ * @apiGroup Action
+ *
+ * @apiParam {Number} actionId Action's unique ID
+ *
+ * @apiSuccess 202 The record was deleted
+ *
+ * @apiError 500 Internal server error while updating record
+ */
 router.delete('/:actionId', async (req, res) => {
 	await models.Actions.destroy({
 		where: {

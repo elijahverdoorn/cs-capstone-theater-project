@@ -12,8 +12,15 @@
     "db:migrate:up:prod": "set NODE_ENV=production && sequelize db:migrate",
     "db:migrate:down": "set NODE_ENV=development && sequelize db:migrate:undo:all",
     "db:migrate:down:test": "set NODE_ENV=test && sequelize db:migrate:undo:all",
-    "db:migrate:down:prod": "set NODE_ENV=production && sequelize db:migrate:undo:all"
+    "db:migrate:down:prod": "set NODE_ENV=production && sequelize db:migrate:undo:all",
+		"document": "apidoc -e ./node_modules/ -o doc"
   },
+	"apidoc": {
+		"name": "Theater API",
+		"version": "0.0.1",
+		"description": "Elijah, David & Deandre's Senior Capstone in Computer Science Project. Fall 2017.",
+		"title": "Theater API"
+	},
   "author": "Elijah Verdoorn",
   "license": "MIT",
   "dependencies": {

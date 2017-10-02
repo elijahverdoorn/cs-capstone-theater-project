@@ -21,7 +21,8 @@ router.post('/', async (req, res) => {
 	let cues = await models.Cues.create({
 		name: req.query.name,
 		description: req.query.description,
-		sequenceNum: req.query.sequenceNum
+		sequenceNum: req.query.sequenceNum,
+		showId: req.query.showId
 	})
 	.error(() => {
 		res.sendStatus(500)
@@ -46,6 +47,7 @@ router.patch('/:cueId', async (req, res) => {
 	cue.name = req.query.name || cue.name
 	cue.description = req.query.description || cue.description
 	cue.sequenceNum = req.query.sequenceNum || cue.sequenceNum
+	cue.showId = req.query.showId || cue.showId
 	console.log('saving cue')
 	await cue.save()
 	res.sendStatus(202)

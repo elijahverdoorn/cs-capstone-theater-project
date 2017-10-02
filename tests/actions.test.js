@@ -1,6 +1,10 @@
 import request from 'supertest'
 import app from '../app'
 import models from '../models'
+import insertCue from './lib/insertCue'
+import insertActionType from './lib/insertActionType'
+import insertShow from './lib/insertShow'
+import insertDevice from './lib/insertDevice'
 
 describe('Test /actions route', () => {
 
@@ -9,6 +13,9 @@ describe('Test /actions route', () => {
 	const actionDuration = 'test duration'
 	const actionAddress = 'test address'
 	const actionId = 1
+	let cueId = -1
+	let actionTypeId = -1
+	let deviceId = -1
 
 	// run once, before any test in this test block is run.
 	// use this to set up the testing environment
@@ -17,13 +24,20 @@ describe('Test /actions route', () => {
 		await models.Actions.destroy({
 			where: {}
 		})
+		const showId = await insertShow()
+		cueId = await insertCue(showId)
+		actionTypeId = await insertActionType(showId)
+		deviceId = await insertDevice(showId)
 		// make sure that it has at least one row
 		return models.Actions.create({
 			id: actionId,
 			name: actionName,
 			description: actionDescription,
 			duration: actionDuration,
-			address: actionAddress
+			address: actionAddress,
+			deviceId: deviceId,
+			actionTypeId: actionTypeId,
+			cueId: cueId
 		})
 	})
 
@@ -44,7 +58,10 @@ describe('Test /actions route', () => {
 			.post('/actions')
 			.query({
 				name: newActionName,
-				description: newActionDescription
+				description: newActionDescription,
+				cueId: cueId,
+				actionTypeId: actionTypeId,
+				deviceId: deviceId
 			})
 		expect(response.statusCode).toBe(201)
 	})
@@ -58,6 +75,9 @@ describe('Test /actions route', () => {
 			.query({
 				name: newActionName,
 				description: newActionDescription,
+				cueId: cueId,
+				actionTypeId: actionTypeId,
+				deviceId: deviceId
 			})
 		const newQuery = await models.Actions.findOne({
 			where: {
@@ -102,7 +122,10 @@ describe('Test /actions route', () => {
 		await models.Actions.create({
 			id: actionId,
 			name: actionName,
-			description: actionDescription
+			description: actionDescription,
+			cueId: cueId,
+			actionTypeId: actionTypeId,
+			deviceId: deviceId
 		})
 		const response = await request(app)
 			.delete('/Actions/' + actionId)

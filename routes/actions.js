@@ -22,7 +22,10 @@ router.post('/', async (req, res) => {
 		address: req.query.address,
 		duration: req.query.duration,
 		name: req.query.name,
-		description: req.query.description
+		description: req.query.description,
+		cueId: req.query.cueId,
+		actionTypeId: req.query.actionTypeId,
+		deviceId: req.query.deviceId
 	})
 	.error(() => {
 		res.sendStatus(500)
@@ -48,6 +51,9 @@ router.patch('/:actionId', async (req, res) => {
 	action.duration = req.query.duration || action.duration
 	action.name = req.query.name || action.name
 	action.description = req.query.description || action.description
+	action.cueId = req.query.cueId || action.cueId
+	action.actionTypeId = req.query.actionTypeId || action.actionTypeId
+	action.deviceId = req.query.deviceId || action.deviceId
 	await action.save()
 	res.sendStatus(202)
 })

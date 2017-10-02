@@ -1,6 +1,7 @@
 import request from 'supertest'
 import app from '../app'
 import models from '../models'
+import insertShow from './lib/insertShow'
 
 describe('Test /cues route', () => {
 
@@ -8,6 +9,7 @@ describe('Test /cues route', () => {
 	const cueDescription = 'test description'
 	const cueSequenceNum = 1
 	const cueId = 1
+	let showId = -1
 
 	// run once, before any test in this test block is run.
 	// use this to set up the testing environment
@@ -16,12 +18,14 @@ describe('Test /cues route', () => {
 		await models.Cues.destroy({
 			where: {}
 		})
+		showId = await insertShow()
 		// make sure that it has at least one row
 		return models.Cues.create({
 			id: cueId,
 			name: cueName,
 			description: cueDescription,
-			sequenceNum: cueSequenceNum
+			sequenceNum: cueSequenceNum,
+			showId: showId
 		})
 	})
 
@@ -43,7 +47,8 @@ describe('Test /cues route', () => {
 			.query({
 				name: newCueName,
 				description: newCueDescription,
-				sequenceNum: cueSequenceNum
+				sequenceNum: cueSequenceNum,
+				showId: showId
 			})
 		expect(response.statusCode).toBe(201)
 	})
@@ -57,7 +62,8 @@ describe('Test /cues route', () => {
 			.query({
 				name: newCueName,
 				description: newCueDescription,
-				sequenceNum: cueSequenceNum
+				sequenceNum: cueSequenceNum,
+				showId: showId
 			})
 		const newQuery = await models.Cues.findOne({
 			where: {
@@ -67,6 +73,7 @@ describe('Test /cues route', () => {
 		expect(newQuery.dataValues.name).toBe(newCueName)
 		expect(newQuery.dataValues.description).toBe(newCueDescription)
 		expect(newQuery.dataValues.sequenceNum).toBe(cueSequenceNum)
+		expect(newQuery.dataValues.showId).toBe(showId)
 	})
 
 	test('It should respond 202 to PATCH', async () => {
@@ -92,7 +99,6 @@ describe('Test /cues route', () => {
 		expect(data.dataValues.name).toBe(newCueName)
 	})
 
-
 	test('It should respond 202 to DELETE', async () => {
 		const response = await request(app)
 			.delete('/cues/' + cueId)
@@ -104,7 +110,8 @@ describe('Test /cues route', () => {
 			id: cueId,
 			name: cueName,
 			description: cueDescription,
-			sequenceNum: cueSequenceNum
+			sequenceNum: cueSequenceNum,
+			showId: showId
 		})
 		const response = await request(app)
 			.delete('/Cues/' + cueId)

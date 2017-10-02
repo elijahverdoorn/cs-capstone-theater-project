@@ -45,13 +45,11 @@ describe('Test /actionTypes route', () => {
 
 	test('It should insert a record on POST', async () => {
 		const newActionTypeName = 'new actionType 2'
-		const newActionTypeDescription = 'newActionTypeDescription'
 
 		const response = await request(app)
 			.post('/actionTypes')
 			.query({
-				name: newActionTypeName,
-				description: newActionTypeDescription
+				name: newActionTypeName
 			})
 		const newQuery = await models.ActionTypes.findOne({
 			where: {
@@ -59,7 +57,6 @@ describe('Test /actionTypes route', () => {
 			}
 		})
 		expect(newQuery.dataValues.name).toBe(newActionTypeName)
-		expect(newQuery.dataValues.description).toBe(newActionTypeDescription)
 	})
 
 	test('It should respond 202 to PATCH', async () => {

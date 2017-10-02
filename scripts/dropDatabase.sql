@@ -1,5 +1,5 @@
-DROP DATABASE IF NOT EXISTS theater_control_development;
-DROP DATABASE IF NOT EXISTS theater_control_test;
-DROP DATABASE IF NOT EXISTS theater_control_production;
+DROP DATABASE IF EXISTS theater_control_development;
+DROP DATABASE IF EXISTS theater_control_test;
+DROP DATABASE IF EXISTS theater_control_production;
 
 

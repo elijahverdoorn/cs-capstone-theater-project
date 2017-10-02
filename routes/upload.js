@@ -6,23 +6,22 @@ import { USER_FILE_STORAGE_PATH } from '../config'
 
 const router = express.Router()
 
-let getAssetTypeFromMimeType = async (mimetype) => {
-	try {
-		let asset = await models.AssetTypes.findOne({
-			where: {
-				mime: mimetype
-			}
-		})
-		console.log(asset)
+function getAssetTypeFromMimeType(mimetype) {
+	models.AssetType.findOne({
+		where: {
+			mime: mimetype
+		}
+	})
+	.then((asset) => {
 		return asset
-	} catch (err) {
+	})
+	.error(() => {
 		console.log('Error getting asset type from mimetype: ' + err)
 		return null
-	}
+	})
 }
 
-router.post('/:showId', async (req, res) => {
-	console.log('got an upload request')
+router.post('/', (req, res) => {
 	if (!req.files) {
 		// there are no files
 		console.log('no files in upload request')
@@ -31,8 +30,7 @@ router.post('/:showId', async (req, res) => {
 	}
 
 	let assetFile = req.files.assetFile
-	let assetType = await getAssetTypeFromMimeType(assetFile.mimetype)
-	console.log('assetType: ' + assetType)
+	let assetType = getAssetTypeFromMimeType(assetFile.mimetype)
 
 	// make sure that the directory exists
 	let assetDirectory = `${USER_FILE_STORAGE_PATH}/${req.params.showId}/${assetType.dataValues.id}`
@@ -48,7 +46,6 @@ router.post('/:showId', async (req, res) => {
 
 	let assetPath = `${assetDirectory}/${assetFile.name}`
 
-	console.log('moving asset file')
 	assetFile.mv(assetPath, (err) => { // move the file on the server
 		if (err) {
 			console.log('error moving file')

@@ -74,5 +74,3 @@ app.use(function(err, req, res, next) {
 })
 
 module.exports = app
-
-app.listen(4000)

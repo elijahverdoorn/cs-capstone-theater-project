@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:userId?', async (req, res) => {
-	if (req.params.userId) {
+	if (req.params && req.params.userId) {
 		let users = await models.Users.findAll({
 			where: {
 				id: req.params.userId
@@ -31,9 +31,9 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:userId', async (req, res) => {
-	let user = models.Users.find({
+	let user = await models.Users.find({
 		where: {
-			id: req.query.userId
+			id: req.params.userId
 		}
 	})
 	.error((err) => {

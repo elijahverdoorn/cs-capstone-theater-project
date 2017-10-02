@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:actionId?', async (req, res) => {
-	if (req.params.actionId) {
+	if (req.params && req.params.actionId) {
 		let actions = await models.Actions.findAll({
 			where: {
 				id: req.params.actionId
@@ -22,7 +22,10 @@ router.post('/', async (req, res) => {
 		address: req.query.address,
 		duration: req.query.duration,
 		name: req.query.name,
-		description: req.query.description
+		description: req.query.description,
+		cueId: req.query.cueId,
+		actionTypeId: req.query.actionTypeId,
+		deviceId: req.query.deviceId
 	})
 	.error(() => {
 		res.sendStatus(500)
@@ -31,7 +34,7 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:actionId', async (req, res) => {
-	let action = models.Actions.find({
+	let action = await models.Actions.find({
 		where: {
 			id: req.params.actionId
 		}
@@ -48,6 +51,9 @@ router.patch('/:actionId', async (req, res) => {
 	action.duration = req.query.duration || action.duration
 	action.name = req.query.name || action.name
 	action.description = req.query.description || action.description
+	action.cueId = req.query.cueId || action.cueId
+	action.actionTypeId = req.query.actionTypeId || action.actionTypeId
+	action.deviceId = req.query.deviceId || action.deviceId
 	await action.save()
 	res.sendStatus(202)
 })

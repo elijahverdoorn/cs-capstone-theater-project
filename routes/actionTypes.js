@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:actionTypeId?', async (req, res) => {
-	if (req.params.actionTypeId) {
+	if (req.params && req.params.actionTypeId) {
 		let actions = await models.ActionTypes.findAll({
 			where: {
 				id: req.params.actionTypeId
@@ -28,9 +28,9 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:actionTypeId', async (req, res) => {
-	let actionType = models.ActionTypes.find({
+	let actionType = await models.ActionTypes.find({
 		where: {
-			id: req.query.actionTypeId
+			id: req.params.actionTypeId
 		}
 	})
 	.error((err) => {

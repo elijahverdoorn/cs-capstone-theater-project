@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:showId?', async (req, res) => {
-	if (rea.params.showId) {
+	if (res.params && res.params.showId) {
 		let shows = await models.Shows.findAll({
 			where: {
 				id: req.params.showId
@@ -29,9 +29,9 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:showId', async (req, res) => {
-	let show = models.Shows.find({
+	let show = await models.Shows.find({
 		where: {
-			id: req.query.showId
+			id: req.params.showId
 		}
 	})
 	.error((err) => {

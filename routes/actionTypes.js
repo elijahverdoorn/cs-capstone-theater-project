@@ -28,9 +28,9 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:actionTypeId', async (req, res) => {
-	let actionType = models.ActionTypes.find({
+	let actionType = await models.ActionTypes.find({
 		where: {
-			id: req.query.actionTypeId
+			id: req.params.actionTypeId
 		}
 	})
 	.error((err) => {

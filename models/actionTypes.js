@@ -2,8 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
 	const ActionTypes = sequelize.define('ActionTypes', {
-		name: DataTypes.STRING,
-		mime: DataTypes.STRING
+		name: DataTypes.STRING
 	}, {
 		freezeTableName: true
 	})

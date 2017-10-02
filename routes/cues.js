@@ -3,6 +3,20 @@ import express from 'express'
 
 const router = express.Router()
 
+/**
+ * @api {get} /cue/:cueId Request cue information
+ * @apiName GetCue
+ * @apiGroup Cue
+ *
+ * @apiParam {Number} cueId Cue's unique ID
+ *
+ * @apiSuccess {String} name The name of the cue
+ * @apiSuccess {String} description A description of the action
+ * @apiSuccess {Number} sequenceNum Where this cue falls relative to other cues with the same showId
+ * @apiSuccess {Number} showId The show that this cue should be associated with
+ *
+ * @apiError 404 The id of the cue was not found
+ */
 router.get('/:cueId?', async (req, res) => {
 	if (req.params && req.params.cueId) {
 		let cues = await models.Cues.findAll({
@@ -17,6 +31,20 @@ router.get('/:cueId?', async (req, res) => {
 	}
 })
 
+/**
+ * @api {post} /cue/ Create new cue information
+ * @apiName PostCue
+ * @apiGroup Cue
+ *
+ * @apiParam {String} name The name of the cue
+ * @apiParam {String} description A description of the action
+ * @apiParam {Number} sequenceNum Where this cue falls relative to other cues with the same showId
+ * @apiParam {Number} showId The show that this cue should be associated with
+ *
+ * @apiError 500 There was an error creating this cue. Cue has not been created.
+ *
+ * @apiSuccess 201 The cue has been createdmodifying.
+ */
 router.post('/', async (req, res) => {
 	let cues = await models.Cues.create({
 		name: req.query.name,
@@ -30,6 +58,22 @@ router.post('/', async (req, res) => {
 	res.sendStatus(201)
 })
 
+/**
+ * @api {patch} /cue/:cueId Modify existing cue information
+ * @apiName PatchCue
+ * @apiGroup Cue
+ *
+ * @apiParam {Number} cueId The cue's unique ID
+ *
+ * @apiParam {String} name (optional) The name of the cue
+ * @apiParam {String} description (optional) A description of the action
+ * @apiParam {Number} sequenceNum (optional) Where this cue falls relative to other cues with the same showId
+ * @apiParam {Number} showId (optional) The show that this cue should be associated with
+ *
+ * @apiError 500 There was an error modifying this cue. Cue has not been altered.
+ *
+ * @apiSuccess 202 This cue has been modified.
+ */
 router.patch('/:cueId', async (req, res) => {
 	let cue = await models.Cues.find({
 		where: {
@@ -53,6 +97,17 @@ router.patch('/:cueId', async (req, res) => {
 	res.sendStatus(202)
 })
 
+/**
+ * @api {delete} /cue/:cueId Delete cue information
+ * @apiName DeleteCue
+ * @apiGroup Cue
+ *
+ * @apiParam {Number} cueId The cue's unique ID
+ *
+ * @apiError 500 There was an error deleting this cue. Cue has not been altered.
+ *
+ * @apiSuccess 202 This cue has been deleted.
+ */
 router.delete('/:cueId', async (req, res) => {
 	await models.Cues.destroy({
 		where: {

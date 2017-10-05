@@ -17,9 +17,9 @@ test:node:6:
         image: node:6
         script:
                 - npm run db:migrate:up:test
-                - npm run test
+                - npm run ci
 test:node:7:
         image: node:7
         script:
                 - npm run db:migrate:up:test
-                - npm run test
+                - npm run ci

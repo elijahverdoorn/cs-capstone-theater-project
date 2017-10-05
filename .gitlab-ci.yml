@@ -5,7 +5,9 @@ services:
 
 before_script:
         - npm install
-        - mysql < scripts/initDatabase.sql
+
+variables:
+        MYSQL_DATABASE: theater_control_test
 
 cache:
         paths:

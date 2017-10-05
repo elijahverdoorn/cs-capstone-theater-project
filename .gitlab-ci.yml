@@ -1,0 +1,23 @@
+image: node:6
+
+services:
+        - mysql:latest
+
+before_script:
+        - npm install
+        - mysql < scripts/initDatabase.sql
+
+cache:
+        paths:
+                - node_modules/
+
+test:node:6:
+        image: node:6
+        script:
+                - npm run db:migrate:up:test
+                - npm run test
+test:node:7:
+        image: node:7
+        script:
+                - npm run db:migrate:up:test
+                - npm run test

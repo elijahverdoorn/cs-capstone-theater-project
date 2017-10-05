@@ -7,7 +7,8 @@ before_script:
         - npm install
 
 variables:
-        MYSQL_DATABASE: theater_control_test
+        MYSQL_DATABASE: theater_control_ci_database
+        MYSQL_ROOT_PASSWORD: ci_database
 
 cache:
         paths:
@@ -16,10 +17,10 @@ cache:
 test:node:6:
         image: node:6
         script:
-                - npm run db:migrate:up:test
+                - npm run db:migrate:up:ci
                 - npm run ci
 test:node:7:
         image: node:7
         script:
-                - npm run db:migrate:up:test
+                - npm run db:migrate:up:ci
                 - npm run ci

@@ -8,8 +8,8 @@
   },
   "ci": {
     "username": "root",
-    "password": null,
-    "database": "theater_control_test",
+    "password": "ci_database",
+    "database": "theater_control_ci_database",
     "host": "mysql",
     "dialect": "mysql"
   },

@@ -13,6 +13,7 @@ import cues from './routes/cues'
 import devices from './routes/devices'
 import shows from './routes/shows'
 import users from './routes/users'
+import play from './routes/play'
 
 const app = express()
 
@@ -46,6 +47,7 @@ app.use('/devices', devices)
 app.use('/shows', shows)
 app.use('/users', users)
 app.use('/uploads', upload)
+app.use('/plays', upload)
 
 // API routes
 app.use('/action', actions)
@@ -55,6 +57,7 @@ app.use('/device', devices)
 app.use('/show', shows)
 app.use('/user', users)
 app.use('/upload', upload)
+app.use('/play', upload)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

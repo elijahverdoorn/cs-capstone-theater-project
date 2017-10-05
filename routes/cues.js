@@ -4,34 +4,6 @@ import express from 'express'
 const router = express.Router()
 
 /**
- * @api {get} /cue/:cueId Request cue information
- * @apiName GetCue
- * @apiGroup Cue
- *
- * @apiParam {Number} cueId Cue's unique ID
- *
- * @apiSuccess {String} name The name of the cue
- * @apiSuccess {String} description A description of the action
- * @apiSuccess {Number} sequenceNum Where this cue falls relative to other cues with the same showId
- * @apiSuccess {Number} showId The show that this cue should be associated with
- *
- * @apiError 404 The id of the cue was not found
- */
-router.get('/:cueId?', async (req, res) => {
-	if (req.params && req.params.cueId) {
-		let cues = await models.Cues.findAll({
-			where: {
-				id: req.params.cueId
-			}
-		})
-		res.send(cues)
-	} else {
-		let cues = await models.Cues.findAll()
-		res.send(cues)
-	}
-})
-
-/**
  * @api {get} /cue/show/:showId Request cue information by show
  * @apiName GetCueShow
  * @apiGroup Cue
@@ -56,6 +28,34 @@ router.get('/show/:showId?', async (req, res) => {
 		res.send(cues)
 	} else {
 		res.sendStatus(400)
+	}
+})
+
+/**
+ * @api {get} /cue/:cueId Request cue information
+ * @apiName GetCue
+ * @apiGroup Cue
+ *
+ * @apiParam {Number} cueId Cue's unique ID
+ *
+ * @apiSuccess {String} name The name of the cue
+ * @apiSuccess {String} description A description of the action
+ * @apiSuccess {Number} sequenceNum Where this cue falls relative to other cues with the same showId
+ * @apiSuccess {Number} showId The show that this cue should be associated with
+ *
+ * @apiError 404 The id of the cue was not found
+ */
+router.get('/:cueId?', async (req, res) => {
+	if (req.params && req.params.cueId) {
+		let cues = await models.Cues.findAll({
+			where: {
+				id: req.params.cueId
+			}
+		})
+		res.send(cues)
+	} else {
+		let cues = await models.Cues.findAll()
+		res.send(cues)
 	}
 })
 

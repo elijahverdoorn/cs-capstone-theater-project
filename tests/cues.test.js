@@ -39,6 +39,21 @@ describe('Test /cues route', () => {
 		expect(response.body[0].id).toBe(1)
 	}),
 
+	test('It should respond 200 to GET', async () => {
+		const response = await request(app).get('/cues/show/' + showId)
+		expect(response.statusCode).toBe(200)
+	}),
+
+	test('It should respond 400 to GET with no params', async () => {
+		const response = await request(app).get('/cues/show/')
+		expect(response.statusCode).toBe(400)
+	}),
+
+	test('It should respond to GET with JSON', async () => {
+		const response = await request(app).get('/cues/show/' + showId)
+		expect(response.body[0].id).toBe(1)
+	}),
+
 	test('It should respond 201 to POST', async () => {
 		const newCueName = 'new cue'
 		const newCueDescription = 'newCueDescription'

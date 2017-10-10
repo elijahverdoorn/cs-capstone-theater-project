@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "test": "set NODE_ENV=localtest && jest --runInBand",
-    "ci": "set NODE_ENV=test && jest --runInBand --ci",
+    "ci": "set NODE_ENV=test && jest --runInBand --ci --forceExit",
     "start": "set NODE_ENV=development && babel-node server.js",
     "db:migrate:up": "set NODE_ENV=development && sequelize db:migrate",
     "db:migrate:up:test": "sequelize db:migrate --env localtest",

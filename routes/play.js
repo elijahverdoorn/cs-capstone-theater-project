@@ -16,25 +16,26 @@ const router = express.Router()
  */
 router.get('/:cueId', async (req, res) => {
 	if (req.params && req.params.cueId) {
-		let actions = models.Actions.findAll({
+		console.log('cueId: ' + req.params.cueId)
+		models.Actions.findAll({
 			where: {
 				cueId: req.params.cueId
+			}
+		})
+		.then((actions) => {
+			console.log(actions)
+			if (actions) {
+				res.sendStatus(200)
+			} else {
+				res.sendStatus(404)
 			}
 		})
 		.error((err) => {
 			console.log(err)
 			res.sendStatus(404)
 		})
-		if (actions) {
-			actions.forEach((action) => {
-				// do something with the action on the socket
-			})
-			res.sendStatus(200)
-		} else {
-			res.sendStatus(404)
-			return
-		}
 	} else {
+		console.log('no cueId')
 		res.sendStatus(400)
 	}
 })

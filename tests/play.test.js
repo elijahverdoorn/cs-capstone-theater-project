@@ -41,14 +41,9 @@ describe('Test /play route', () => {
 		})
 	})
 
-	test('It should respond 400 to GET with no cueId', async () => {
-		const response = await request(app).get('/play/')
-		expect(response.statusCode).toBe(400)
-	}),
-
-	test('It should respond 404 to GET with wrong cueId', async () => {
-		const response = await request(app).get('/play/100')
-		expect(response.statusCode).toBe(404)
+	test('It should respond 200 to GET', async () => {
+		const response = await request(app).get('/play/' + cueId)
+		expect(response.statusCode).toBe(200)
 	})
 
 })

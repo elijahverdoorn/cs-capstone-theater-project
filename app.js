@@ -47,7 +47,7 @@ app.use('/devices', devices)
 app.use('/shows', shows)
 app.use('/users', users)
 app.use('/uploads', upload)
-app.use('/plays', upload)
+app.use('/plays', play)
 
 // API routes
 app.use('/action', actions)
@@ -57,7 +57,7 @@ app.use('/device', devices)
 app.use('/show', shows)
 app.use('/user', users)
 app.use('/upload', upload)
-app.use('/play', upload)
+app.use('/play', play)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

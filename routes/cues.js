@@ -4,6 +4,34 @@ import express from 'express'
 const router = express.Router()
 
 /**
+ * @api {get} /cue/show/:showId Request cue information by show
+ * @apiName GetCueShow
+ * @apiGroup Cue
+ *
+ * @apiParam {Number} showId The show ID that you want cues for
+ *
+ * @apiSuccess {String} name The name of the cue
+ * @apiSuccess {String} description A description of the action
+ * @apiSuccess {Number} sequenceNum Where this cue falls relative to other cues with the same showId
+ * @apiSuccess {Number} showId The show that this cue should be associated with
+ * @apiSuccess {Number} id The ID of the cue
+ *
+ * @apiError 404 The id of the show was not found
+ */
+router.get('/show/:showId?', async (req, res) => {
+	if (req.params && req.params.showId) {
+		let cues = await models.Cues.findAll({
+			where: {
+				showId: req.params.showId
+			}
+		})
+		res.send(cues)
+	} else {
+		res.sendStatus(400)
+	}
+})
+
+/**
  * @api {get} /cue/:cueId Request cue information
  * @apiName GetCue
  * @apiGroup Cue

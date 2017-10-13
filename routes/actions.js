@@ -14,6 +14,7 @@ const router = express.Router()
  * @apiSuccess {String} name The name of the action
  * @apiSuccess {String} description A description of the action
  * @apiSuccess {Number} duration Duration, in seconds, of the action
+ * @apiSuccess {Number} assetId The asset that this action is associated with, if any
  *
  * @apiError 404 The id of the action was not found
  */
@@ -40,6 +41,7 @@ router.get('/:actionId?', async (req, res) => {
  * @apiParam {String} address The address of the action
  * @apiParam {String} name The name of the action
  * @apiParam {String} description A description of the action
+ * @apiParam {Number} assetId The asset that this action is associated with, if any
  *
  * @apiError 500 Failed to create record in database
  *
@@ -53,7 +55,8 @@ router.post('/', async (req, res) => {
 		description: req.query.description,
 		cueId: req.query.cueId,
 		actionTypeId: req.query.actionTypeId,
-		deviceId: req.query.deviceId
+		deviceId: req.query.deviceId,
+		assetid: req.query.assetId
 	})
 	.error(() => {
 		res.sendStatus(500)
@@ -72,6 +75,7 @@ router.post('/', async (req, res) => {
  * @apiParam {String} name (optional) The name of the action
  * @apiParam {String} description (optional) A description of the action
  * @apiParam {Number} duration (optional) Duration, in seconds, of the action
+ * @apiParam {Number} assetId The asset that this action is associated with, if any
  *
  * @apiSuccess 202 The record was updated
  *
@@ -99,6 +103,7 @@ router.patch('/:actionId', async (req, res) => {
 	action.cueId = req.query.cueId || action.cueId
 	action.actionTypeId = req.query.actionTypeId || action.actionTypeId
 	action.deviceId = req.query.deviceId || action.deviceId
+	action.actionId = req.query.assetid || action.assetId
 	await action.save()
 	res.sendStatus(202)
 })

@@ -1,6 +1,6 @@
 import models from '../models'
 import express from 'express'
-
+import encodeMedia from '../lib/encodeMedia'
 const router = express.Router()
 
 /**
@@ -20,11 +20,19 @@ router.get('/:cueId', async (req, res) => {
 		models.Actions.findAll({
 			where: {
 				cueId: req.params.cueId
-			}
+			},
+			include: [
+				{
+					model: models.ActionTypes
+				}
+			]
 		})
 		.then((actions) => {
 			console.log(actions)
 			if (actions) {
+				// do stuff with the action
+				if (actions.
+
 				res.sendStatus(200)
 			} else {
 				res.sendStatus(404)

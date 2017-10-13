@@ -4,7 +4,6 @@ import bodyParser from 'body-parser'
 import models from './models'
 import moment from 'moment'
 import fileUpload from 'express-fileupload'
-
 import { MAX_FILE_SIZE } from './config'
 
 import actions from './routes/actions'
@@ -17,6 +16,10 @@ import users from './routes/users'
 import play from './routes/play'
 
 const app = express()
+
+// set up the server using Node's standard HTTP server so that Socket.io can use it too
+let server = require('http').Server(app)
+let io = require('socket.io')(server) // give socket.io a reference to the HTTP server
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -76,5 +79,8 @@ app.use(function(err, req, res, next) {
 	// render the error page
 	res.status(err.status || 500)
 })
+
+// attach socket.io to the global app object
+app.io = io
 
 module.exports = app

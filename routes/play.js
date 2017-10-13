@@ -24,6 +24,9 @@ router.get('/:cueId', async (req, res) => {
 			include: [
 				{
 					model: models.ActionTypes
+				},
+				{
+					model: models.Assets
 				}
 			]
 		})
@@ -31,8 +34,6 @@ router.get('/:cueId', async (req, res) => {
 			console.log(actions)
 			if (actions) {
 				// do stuff with the action
-				if (actions.
-
 				res.sendStatus(200)
 			} else {
 				res.sendStatus(404)

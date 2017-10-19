@@ -15,6 +15,8 @@
     "db:migrate:down": "set NODE_ENV=development && sequelize db:migrate:undo:all",
     "db:migrate:down:test": "set NODE_ENV=test && sequelize db:migrate:undo:all",
     "db:migrate:down:prod": "set NODE_ENV=production && sequelize db:migrate:undo:all",
+		"db:seed:up": "sequelize db:seed:all",
+		"db:seed:down": "sequelize db:seed:undo:all",
     "document": "apidoc -e ./node_modules/ -o doc"
   },
   "apidoc": {

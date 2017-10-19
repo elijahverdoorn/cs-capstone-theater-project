@@ -15,11 +15,15 @@ import shows from './routes/shows'
 import users from './routes/users'
 import play from './routes/play'
 
-const app = express()
+let app = express()
 
 // set up the server using Node's standard HTTP server so that Socket.io can use it too
 let server = require('http').Server(app)
 let io = require('socket.io')(server) // give socket.io a reference to the HTTP server
+
+io.on('connection', (socket) => {
+	console.log('connection made to socket')
+})
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -81,6 +85,6 @@ app.use(function(err, req, res, next) {
 })
 
 // attach socket.io to the global app object
-app.io = io
+// app.io = io
 
-module.exports = app
+export { app, server }

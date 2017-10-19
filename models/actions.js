@@ -12,9 +12,10 @@ module.exports = (sequelize, DataTypes) => {
 	})
 
 	Actions.associate = (models) => {
-		Actions.belongsTo(models.Cues, { as: 'cue' })
-		Actions.belongsTo(models.ActionTypes, { as: 'actionType' })
-		Actions.belongsTo(models.Devices, { as: 'device' })
+		Actions.belongsTo(models.Cues)
+		Actions.belongsTo(models.ActionTypes)
+		Actions.belongsTo(models.Devices)
+		Actions.belongsTo(models.Assets)
 	}
 
 	return Actions

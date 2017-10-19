@@ -1,6 +1,7 @@
 import models from '../models'
 import express from 'express'
 import encodeMedia from '../lib/encodeMedia'
+import actionTypes from '../lib/actionTypes'
 const router = express.Router()
 
 /**
@@ -15,8 +16,8 @@ const router = express.Router()
  * @apiError 404 The cue was not found in the database
  */
 router.get('/:cueId', async (req, res) => {
+
 	if (req.params && req.params.cueId) {
-		console.log('cueId: ' + req.params.cueId)
 		models.Actions.findAll({
 			where: {
 				cueId: req.params.cueId
@@ -31,9 +32,20 @@ router.get('/:cueId', async (req, res) => {
 			]
 		})
 		.then((actions) => {
-			console.log(actions)
 			if (actions) {
 				// do stuff with the action
+				actions.forEach((action) => {
+					// console.log('=================')
+					// console.log(action)
+					switch (action.dataValues.ActionTypeId) {
+						// do some stuff based on the action type of this action
+						case actionTypes.vibratePhone:
+							console.log('Action type: Vibrate Phone')
+							app.io.send(actionTypes.vibratePhone)
+						default:
+							break
+					}
+				})
 				res.sendStatus(200)
 			} else {
 				res.sendStatus(404)

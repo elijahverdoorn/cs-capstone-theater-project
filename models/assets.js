@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	Assets.associate = (models) => {
 		Assets.belongsTo(models.Shows, { as: 'show' })
+		Assets.hasMany(models.Actions)
 	}
 
 	return Assets

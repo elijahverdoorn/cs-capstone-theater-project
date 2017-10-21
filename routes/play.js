@@ -2,6 +2,12 @@ import models from '../models'
 import express from 'express'
 import encodeMedia from '../lib/encodeMedia'
 import actionTypes from '../lib/actionTypes'
+import { app } from '../app'
+import sendAudio from '../lib/sendAudio'
+import sendVideo from '../lib/sendVideo'
+import sendImage from '../lib/sendImage'
+import sendVibrate from '../lib/sendVibrate'
+import sendBackground from '../lib/sendBackground'
 const router = express.Router()
 
 /**
@@ -27,7 +33,12 @@ router.get('/:cueId', async (req, res) => {
 					model: models.ActionTypes
 				},
 				{
-					model: models.Assets
+					model: models.Assets,
+					include: [
+						{
+							model: models.AssetTypes
+						}
+					]
 				}
 			]
 		})
@@ -35,13 +46,28 @@ router.get('/:cueId', async (req, res) => {
 			if (actions) {
 				// do stuff with the action
 				actions.forEach((action) => {
-					// console.log('=================')
-					// console.log(action)
 					switch (action.dataValues.ActionTypeId) {
 						// do some stuff based on the action type of this action
+						case actionTypes.changeBackground:
+							console.log('Action type: changeBackground')
+							app.io.emit('message', actionTypes.changeBackground)
+							break
+						case actionTypes.playVideo:
+							console.log('Action type: playVideo')
+							app.io.emit('message', actionTypes.playVideo)
+							break
+						case actionTypes.playSound:
+							console.log('Action type: playSound')
+							app.io.emit('message', actionTypes.playSound)
+							break
+						case actionTypes.showImage:
+							console.log('Action type: show image')
+							sendImage(action)
+							break
 						case actionTypes.vibratePhone:
 							console.log('Action type: Vibrate Phone')
-							app.io.send(actionTypes.vibratePhone)
+							app.io.emit('message', actionTypes.vibratePhone)
+							break
 						default:
 							break
 					}

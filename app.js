@@ -85,6 +85,6 @@ app.use(function(err, req, res, next) {
 })
 
 // attach socket.io to the global app object
-// app.io = io
+app.io = io
 
 export { app, server }

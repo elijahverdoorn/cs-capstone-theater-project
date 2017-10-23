@@ -6,19 +6,18 @@ import { USER_FILE_STORAGE_PATH } from '../config'
 
 const router = express.Router()
 
-function getAssetTypeFromMimeType(mimetype) {
-	models.AssetType.findOne({
+async function getAssetTypeFromMimeType(mimetype) {
+	let asset = await models.AssetTypes.findOne({
 		where: {
 			mime: mimetype
 		}
-	})
-	.then((asset) => {
-		return asset
 	})
 	.error(() => {
 		console.log('Error getting asset type from mimetype: ' + err)
 		return null
 	})
+	console.log(asset)
+	return asset.dataValues.id
 }
 
 /**
@@ -32,7 +31,7 @@ function getAssetTypeFromMimeType(mimetype) {
  * @apiSuccess 200 Asset stored, database record created
  * @apiError 500 Error saving file, or error creating database record to track files
  */
-router.post('/', (req, res) => {
+router.post('/:showId', async (req, res) => {
 	if (!req.files) {
 		// there are no files
 		console.log('no files in upload request')
@@ -41,10 +40,10 @@ router.post('/', (req, res) => {
 	}
 
 	let assetFile = req.files.assetFile
-	let assetType = getAssetTypeFromMimeType(assetFile.mimetype)
+	let assetTypeId = await getAssetTypeFromMimeType(assetFile.mimetype)
 
 	// make sure that the directory exists
-	let assetDirectory = `${USER_FILE_STORAGE_PATH}/${req.params.showId}/${assetType.dataValues.id}`
+	let assetDirectory = `${USER_FILE_STORAGE_PATH}/${req.params.showId}/${assetTypeId}`
 	if (!fs.existsSync(USER_FILE_STORAGE_PATH)) {
 		fs.mkdirSync(USER_FILE_STORAGE_PATH)
 	}
@@ -56,6 +55,8 @@ router.post('/', (req, res) => {
 	}
 
 	let assetPath = `${assetDirectory}/${assetFile.name}`
+
+	console.log('moving file')
 
 	assetFile.mv(assetPath, (err) => { // move the file on the server
 		if (err) {
@@ -69,7 +70,7 @@ router.post('/', (req, res) => {
 				name: assetFile.name,
 				path: assetPath,
 				showId: req.params.showId,
-				assetTypeId: assetType.dataValues.id
+				assetTypeId: assetTypeId
 			})
 			.then(() => {
 				console.log('inserted record into asset')

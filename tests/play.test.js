@@ -1,5 +1,5 @@
 import request from 'supertest'
-import app from '../app'
+import { app } from '../app'
 import models from '../models'
 import insertCue from './lib/insertCue'
 import insertActionType from './lib/insertActionType'

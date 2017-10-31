@@ -9,4 +9,4 @@ doc
 *.pdf
 
 # Default user files directory
-./userFiles
+userFiles

@@ -15,6 +15,9 @@ const router = express.Router()
  * @apiSuccess {String} description A description of the action
  * @apiSuccess {Number} duration Duration, in seconds, of the action
  * @apiSuccess {Number} assetId The asset that this action is associated with, if any
+ * @apiSuccess {Number} redValue If this is a background color changing action, the value of red that should be used. Should be between 0-255.
+ * @apiSuccess {Number} greenValue If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
+ * @apiSuccess {Number} blueValue If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
  *
  * @apiError 404 The id of the action was not found
  */
@@ -42,6 +45,9 @@ router.get('/:actionId?', async (req, res) => {
  * @apiParam {String} name The name of the action
  * @apiParam {String} description A description of the action
  * @apiParam {Number} assetId The asset that this action is associated with, if any
+ * @apiParam {Number} redValue If this is a background color changing action, the value of red that should be used. Should be between 0-255.
+ * @apiParam {Number} greenValue If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
+ * @apiParam {Number} blueValue If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
  *
  * @apiError 500 Failed to create record in database
  *
@@ -56,7 +62,10 @@ router.post('/', async (req, res) => {
 		cueId: req.query.cueId,
 		actionTypeId: req.query.actionTypeId,
 		deviceId: req.query.deviceId,
-		assetid: req.query.assetId
+		assetid: req.query.assetId,
+		redValue: req.query.redValue,
+		blueValue: req.query.blueValue,
+		greenValue: req.query.greenValue
 	})
 	.error(() => {
 		res.sendStatus(500)
@@ -76,6 +85,9 @@ router.post('/', async (req, res) => {
  * @apiParam {String} description (optional) A description of the action
  * @apiParam {Number} duration (optional) Duration, in seconds, of the action
  * @apiParam {Number} assetId The asset that this action is associated with, if any
+ * @apiParam {Number} redValue If this is a background color changing action, the value of red that should be used. Should be between 0-255.
+ * @apiParam {Number} greenValue If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
+ * @apiParam {Number} blueValue If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
  *
  * @apiSuccess 202 The record was updated
  *
@@ -104,6 +116,9 @@ router.patch('/:actionId', async (req, res) => {
 	action.actionTypeId = req.query.actionTypeId || action.actionTypeId
 	action.deviceId = req.query.deviceId || action.deviceId
 	action.actionId = req.query.assetid || action.assetId
+	action.redValue = req.query.redValue || action.redValue
+	action.greenValue = req.query.greenValue || action.greenValue
+	action.blueValue = req.query.blueValue || action.blueValue
 	await action.save()
 	res.sendStatus(202)
 })

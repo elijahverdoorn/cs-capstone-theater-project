@@ -42,7 +42,6 @@ describe('Test /actions route', () => {
 	})
 
 	test('It should respond 200 to GET', async () => {
-		console.log('ENV = ' + process.env.NODE_ENV)
 		const response = await request(app).get('/actions')
 		expect(response.statusCode).toBe(200)
 	}),

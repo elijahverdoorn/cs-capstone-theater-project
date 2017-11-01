@@ -5,6 +5,8 @@ import insertCue from './lib/insertCue'
 import insertActionType from './lib/insertActionType'
 import insertShow from './lib/insertShow'
 import insertDevice from './lib/insertDevice'
+import insertAsset from './lib/insertAsset'
+import insertAssetType from './lib/insertAssetType'
 
 describe('Test /play route', () => {
 
@@ -16,6 +18,8 @@ describe('Test /play route', () => {
 	let cueId = -1
 	let actionTypeId = -1
 	let deviceId = -1
+	let assetId = -1
+	let assetTypeId = -1
 
 	// run once, before any test in this test block is run.
 	// use this to set up the testing environment
@@ -28,8 +32,12 @@ describe('Test /play route', () => {
 		cueId = await insertCue(showId)
 		actionTypeId = await insertActionType(showId)
 		deviceId = await insertDevice(showId)
+		assetTypeId = await insertAssetType()
+		assetId = await insertAsset(assetTypeId, showId)
 		// make sure that it has at least one row
+		console.log('cueId: ' + cueId)
 		return models.Actions.create({
+			cueId: cueId,
 			id: actionId,
 			name: actionName,
 			description: actionDescription,
@@ -37,7 +45,7 @@ describe('Test /play route', () => {
 			address: actionAddress,
 			deviceId: deviceId,
 			actionTypeId: actionTypeId,
-			cueId: cueId
+			assetId: assetId
 		})
 	})
 

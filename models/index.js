@@ -4,7 +4,6 @@ import fs from 'fs'
 
 let env = process.env.NODE_ENV || 'development'
 let ci = process.env.CI || false
-console.log(ci)
 let config
 if (ci) {
 	console.log('CI set to TRUE, using config.ci.json')

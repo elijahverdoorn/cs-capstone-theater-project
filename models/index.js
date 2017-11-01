@@ -3,12 +3,15 @@ import path from 'path'
 import fs from 'fs'
 
 let env = process.env.NODE_ENV || 'development'
-let ci = process.env.CI || 'local'
+let ci = process.env.CI || false
+console.log(ci)
 let config
-if (ci == 'TRUE') {
+if (ci) {
+	console.log('CI set to TRUE, using config.ci.json')
 	config = require(path.join(__dirname, '..', 'config', 'config.ci.json'))
 	config = config[env]
 } else {
+	console.log('CI set to FALSE, using config.json')
 	config = require(path.join(__dirname, '..', 'config', 'config.json'))
 	config = config[env]
 }

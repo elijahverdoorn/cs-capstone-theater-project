@@ -13,6 +13,9 @@ const router = express.Router()
  * @apiSuccess {Boolean} isAdmin The user's permission level
  * @apiSuccess {String} deviceType The kind of device that the user is connecting with
  * @apiSuccess {String} seat The seath that the user is occupying
+ * @apiSuccess {String} firstName The user's first name
+ * @apiSuccess {String} lastName The user's last name
+ * @apiSuccess {String} email The user's email address
  * @apiSuccess {String} ipAddress The user's IP address
  */
 router.get('/:userId?', async (req, res) => {
@@ -38,12 +41,18 @@ router.get('/:userId?', async (req, res) => {
  * @apiParam {String} deviceType The kind of device that the user is connecting with
  * @apiParam {String} seat The seath that the user is occupying
  * @apiParam {String} ipAddress The user's IP address
+ * @apiParam {String} firstName The user's first name
+ * @apiParam {String} lastName The user's last name
+ * @apiParam {String} email The user's email address
  *
  * @apiError 500 Error creating user record
  */
 router.post('/', async (req, res) => {
 	let users = await models.Users.create({
 		deviceType: req.query.deviceType,
+		firstName: req.query.firstName,
+		lastName: req.query.lastName,
+		email: req.query.email,
 		isAdmin: req.query.isAdmin,
 		seat: req.query.seat,
 		ipAddress: req.query.ipAddress
@@ -64,6 +73,9 @@ router.post('/', async (req, res) => {
  * @apiParam {String} deviceType (optional) The kind of device that the user is connecting with
  * @apiParam {String} seat (optional) The seath that the user is occupying
  * @apiParam {String} ipAddress (optional) The user's IP address
+ * @apiParam {String} firstName The user's first name
+ * @apiParam {String} lastName The user's last name
+ * @apiParam {String} email The user's email address
  *
  * @apiError 500 Error changing user record
  * @apiError 404 User not found with provided userId
@@ -88,6 +100,9 @@ router.patch('/:userId', async (req, res) => {
 	user.isAdmin = req.query.isAdmin || user.isAdmin
 	user.seat = req.query.seat || user.seat
 	user.ipAddress = req.query.ipAddress || user.ipAddress
+	user.firstName = req.query.firstName || user.firstName
+	user.lastName = req.query.lastName || user.lastName
+	user.email = req.query.email || user.email
 	await user.save()
 	res.sendStatus(202)
 })

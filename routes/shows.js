@@ -12,6 +12,7 @@ const router = express.Router()
  *
  * @apiSuccess {String} name The name of the action
  * @apiSuccess {String} director Name of the show's director
+ * @apiSuccess {Number} splashScreenAssetId The id of the asset that is used as the splash screen for this show
  *
  * @apiError 404 The id of the show was not found
  */
@@ -36,13 +37,15 @@ router.get('/:showId?', async (req, res) => {
  *
  * @apiParam {String} name The name of the action
  * @apiParam {String} director Name of the show's director
+ * @apiParam {Number} splashScreenAssetId The id of the asset that is used as the splash screen for this show
  *
  * @apiError 500 Error creating show. Show record not created.
  */
 router.post('/', async (req, res) => {
 	let shows = await models.Shows.create({
 		name: req.query.name,
-		director: req.query.director
+		director: req.query.director,
+		splashScreenAssetId: req.query.splashScreenAssetId
 	})
 	.error(() => {
 		res.sendStatus(500)
@@ -59,6 +62,7 @@ router.post('/', async (req, res) => {
  *
  * @apiParam {String} name (optional) The name of the action
  * @apiParam {String} director (optional) Name of the show's director
+ * @apiParam {Number} splashScreenAssetId The id of the asset that is used as the splash screen for this show
  *
  * @apiSuccess 202 Show modified.
  *
@@ -81,6 +85,7 @@ router.patch('/:showId', async (req, res) => {
 	}
 	show.name = req.query.name || show.name
 	show.director = req.query.director || show.director
+	show.splashScreenAssetId = req.query.splashScreenAssetId || show.splashScreenAssetId
 	await show.save()
 	res.sendStatus(202)
 })

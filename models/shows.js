@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 	})
 
 	Shows.associate = (models) => {
-		Shows.belongsTo(models.Assets, { as: 'splashScreenAsset' })
+		Shows.hasOne(models.Assets)
 	}
 
 	return Shows

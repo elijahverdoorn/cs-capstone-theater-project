@@ -15,6 +15,7 @@ import shows from './routes/shows'
 import users from './routes/users'
 import play from './routes/play'
 
+import sendImage from './lib/sendImage'
 let app = express()
 
 // set up the server using Node's standard HTTP server so that Socket.io can use it too
@@ -22,7 +23,38 @@ let server = require('http').Server(app)
 let io = require('socket.io')(server) // give socket.io a reference to the HTTP server
 
 io.on('connection', (socket) => {
-	console.log('connection made to socket')
+	// send the splash screen to the socket
+	// we expect that the client will provide us the id of the show that they are watching in the query portion of the handshake
+	let handshake = socket.handshake
+	let socketId = socket.id
+	console.log(handshake.query)
+	if (handshake.query) {
+		let showId = handshake.query.showId
+		models.Shows.findOne({
+			where: {
+				id: showId
+			}
+		})
+		.then((show) => {
+			models.Assets.findOne({
+				where: {
+					id: show.dataValues.splashScreenAssetId
+				},
+				include: [
+					{
+						model: models.AssetTypes
+					}
+				]
+			})
+			.then((asset) => {
+				// send the splash screen to the client
+				sendImage(asset, socketId)
+			})
+		})
+	} else {
+		// nothing in the query, so we can't send the splash screen
+		return
+	}
 })
 
 app.use(bodyParser.json())

@@ -3,8 +3,17 @@ import path from 'path'
 import fs from 'fs'
 
 let env = process.env.NODE_ENV || 'development'
-let config = require(path.join(__dirname, '..', 'config', 'config.json'))
-config = config[env]
+let ci = process.env.CI || false
+let config
+if (ci) {
+	console.log('CI set to TRUE, using config.ci.json')
+	config = require(path.join(__dirname, '..', 'config', 'config.ci.json'))
+	config = config[env]
+} else {
+	console.log('CI set to FALSE, using config.json')
+	config = require(path.join(__dirname, '..', 'config', 'config.json'))
+	config = config[env]
+}
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config)
 

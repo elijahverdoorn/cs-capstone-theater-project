@@ -5,7 +5,10 @@ module.exports = (sequelize, DataTypes) => {
 		isAdmin: DataTypes.BOOLEAN,
 		deviceType: DataTypes.STRING,
 		seat: DataTypes.STRING,
-		ipAddress: DataTypes.STRING
+		ipAddress: DataTypes.STRING,
+		firstName: DataTypes.STRING,
+		lastName: DataTypes.STRING,
+		email: DataTypes.STRING
 	}, {
 		freezeTableName: true
 	})

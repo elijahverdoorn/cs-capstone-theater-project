@@ -62,7 +62,7 @@ router.get('/:cueId', async (req, res) => {
 							break
 						case actionTypes.showImage:
 							console.log('Action type: show image')
-							sendImage(action)
+							sendImage(action, null) // send null socketId so that it goes to all clients
 							break
 						case actionTypes.vibratePhone:
 							console.log('Action type: Vibrate Phone')

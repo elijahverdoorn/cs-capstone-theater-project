@@ -22,7 +22,7 @@ test:node:6:
         stage: test
         script:
                 - npm run db:migrate:up:ci
-                - npm run db:seed:up:test
+                - npm run db:seed:up:ci
                 - npm run ci
 
 test:node:7:
@@ -30,5 +30,5 @@ test:node:7:
         stage: test
         script:
                 - npm run db:migrate:up:ci
-                - npm run db:seed:up:test
+                - npm run db:seed:up:ci
                 - npm run ci

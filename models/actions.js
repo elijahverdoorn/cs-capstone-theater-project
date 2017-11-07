@@ -5,7 +5,11 @@ module.exports = (sequelize, DataTypes) => {
 		address: DataTypes.STRING,
 		duration: DataTypes.DECIMAL,
 		name: DataTypes.STRING,
-		description: DataTypes.TEXT
+		description: DataTypes.TEXT,
+		cueId: DataTypes.INTEGER,
+		actionTypeId: DataTypes.INTEGER,
+		assetId: DataTypes.INTEGER,
+		deviceId: DataTypes.INTEGER
 	}, {
 		freezeTableName: true,
 		timestamps: true

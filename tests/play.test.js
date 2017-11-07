@@ -34,11 +34,9 @@ describe('Test /play route', () => {
 		deviceId = await insertDevice(showId)
 		assetTypeId = await insertAssetType()
 		assetId = await insertAsset(assetTypeId, showId)
-		// make sure that it has at least one row
-		console.log('cueId: ' + cueId)
-		return models.Actions.create({
-			cueId: cueId,
+		await models.Actions.create({
 			id: actionId,
+			cueId: cueId,
 			name: actionName,
 			description: actionDescription,
 			duration: actionDuration,

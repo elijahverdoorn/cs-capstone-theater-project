@@ -17,7 +17,7 @@
     "db:migrate:down:prod": "set NODE_ENV=production && sequelize db:migrate:undo:all",
 		"db:seed:up": "sequelize db:seed:all",
 		"db:seed:up:test": "sequelize db:seed:all --env test",
-		"db:seed:up:ci": "set CI=TRUE && sequelize db:seed:all --env test",
+		"db:seed:up:ci": "set CI=TRUE && sequelize db:seed:all --env test --config config/config.ci.json",
 		"db:seed:down:test": "sequelize db:undo:all --env test",
 		"db:seed:down": "sequelize db:seed:undo:all",
     "document": "apidoc -e ./node_modules/ -o doc"

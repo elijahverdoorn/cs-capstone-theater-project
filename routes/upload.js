@@ -16,7 +16,6 @@ async function getAssetTypeFromMimeType(mimetype) {
 		console.log('Error getting asset type from mimetype: ' + err)
 		return null
 	})
-	console.log(asset)
 	return asset.dataValues.id
 }
 
@@ -44,6 +43,7 @@ router.post('/:showId', async (req, res) => {
 
 	// make sure that the directory exists
 	let assetDirectory = `${USER_FILE_STORAGE_PATH}/${req.params.showId}/${assetTypeId}`
+	console.log(assetDirectory)
 	if (!fs.existsSync(USER_FILE_STORAGE_PATH)) {
 		fs.mkdirSync(USER_FILE_STORAGE_PATH)
 	}
@@ -56,16 +56,12 @@ router.post('/:showId', async (req, res) => {
 
 	let assetPath = `${assetDirectory}/${assetFile.name}`
 
-	console.log('moving file')
-
 	assetFile.mv(assetPath, (err) => { // move the file on the server
 		if (err) {
-			console.log('error moving file')
 			res.sendStatus(500)
 			console.log(`Error moving user file ${err}`)
 			return
 		} else {
-			console.log('moved file')
 			models.Assets.create({
 				name: assetFile.name,
 				path: assetPath,

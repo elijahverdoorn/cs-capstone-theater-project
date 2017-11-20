@@ -51,23 +51,23 @@ router.get('/:cueId', async (req, res) => {
 						// do some stuff based on the action type of this action
 						case actionTypes.changeBackground:
 							console.log('Action type: changeBackground')
-							json = encodeBackground(action, null)
+							json = encodeBackground(action)
 							break
 						case actionTypes.playVideo:
 							console.log('Action type: playVideo')
-							json = encodeVideo(action, null)
+							json = encodeVideo(action)
 							break
 						case actionTypes.playSound:
 							console.log('Action type: playSound')
-							json = encodeAudio(action, null)
+							json = encodeAudio(action)
 							break
 						case actionTypes.showImage:
 							console.log('Action type: show image')
-							json = encodeImage(action, null)
+							json = encodeImage(action)
 							break
 						case actionTypes.vibratePhone:
 							console.log('Action type: Vibrate Phone')
-							json = encodeVibrate(action, null)
+							json = encodeVibrate(action)
 							break
 						default:
 							break

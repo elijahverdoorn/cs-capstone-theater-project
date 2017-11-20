@@ -46,7 +46,8 @@ router.get('/:cueId', async (req, res) => {
 			if (actions) {
 				// do stuff with the action
 				actions.forEach((action) => {
-					let json
+					let json = ''
+
 					switch (action.dataValues.ActionTypeId) {
 						// do some stuff based on the action type of this action
 						case actionTypes.changeBackground:
@@ -64,6 +65,7 @@ router.get('/:cueId', async (req, res) => {
 						case actionTypes.showImage:
 							console.log('Action type: show image')
 							json = encodeImage(action)
+							console.log(json)
 							break
 						case actionTypes.vibratePhone:
 							console.log('Action type: Vibrate Phone')
@@ -72,6 +74,7 @@ router.get('/:cueId', async (req, res) => {
 						default:
 							break
 					}
+
 					if (json) {
 						app.io.emit('json emission', json)
 					} else {

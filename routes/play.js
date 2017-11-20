@@ -3,11 +3,11 @@ import express from 'express'
 import encodeMedia from '../lib/encodeMedia'
 import actionTypes from '../lib/actionTypes'
 import { app } from '../app'
-import sendAudio from '../lib/sendAudio'
-import sendVideo from '../lib/sendVideo'
-import sendImage from '../lib/sendImage'
-import sendVibrate from '../lib/sendVibrate'
-import sendBackground from '../lib/sendBackground'
+import encodeAudio from '../lib/encodeAudio'
+import encodeVideo from '../lib/encodeVideo'
+import encodeImage from '../lib/encodeImage'
+import encodeVibrate from '../lib/encodeVibrate'
+import encodeBackground from '../lib/encodeBackground'
 const router = express.Router()
 
 /**
@@ -46,30 +46,38 @@ router.get('/:cueId', async (req, res) => {
 			if (actions) {
 				// do stuff with the action
 				actions.forEach((action) => {
+					let json
 					switch (action.dataValues.ActionTypeId) {
 						// do some stuff based on the action type of this action
 						case actionTypes.changeBackground:
 							console.log('Action type: changeBackground')
-							app.io.emit('message', actionTypes.changeBackground)
+							json = encodeBackground(action, null)
 							break
 						case actionTypes.playVideo:
 							console.log('Action type: playVideo')
-							app.io.emit('message', actionTypes.playVideo)
+							json = encodeVideo(action, null)
 							break
 						case actionTypes.playSound:
 							console.log('Action type: playSound')
-							app.io.emit('message', actionTypes.playSound)
+							json = encodeAudio(action, null)
 							break
 						case actionTypes.showImage:
 							console.log('Action type: show image')
-							sendImage(action, null) // send null socketId so that it goes to all clients
+							json = encodeImage(action, null)
 							break
 						case actionTypes.vibratePhone:
 							console.log('Action type: Vibrate Phone')
-							app.io.emit('message', actionTypes.vibratePhone)
+							json = encodeVibrate(action, null)
 							break
 						default:
 							break
+					}
+					if (json) {
+						app.io.emit('json emission', json)
+					} else {
+						console.log('Error! json was null when sending over socket')
+						res.sendStatus(500)
+						return
 					}
 				})
 				res.sendStatus(200)

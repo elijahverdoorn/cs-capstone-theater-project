@@ -15,7 +15,7 @@ import shows from './routes/shows'
 import users from './routes/users'
 import play from './routes/play'
 
-import sendImage from './lib/sendImage'
+import encodeImage from './lib/encodeImage'
 let app = express()
 
 // set up the server using Node's standard HTTP server so that Socket.io can use it too
@@ -48,7 +48,7 @@ io.on('connection', (socket) => {
 			})
 			.then((asset) => {
 				// send the splash screen to the client
-				sendImage(asset, socketId)
+				io.to(socketId).emit('json emission', encodeImage(asset))
 			})
 		})
 	} else {

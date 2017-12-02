@@ -72,18 +72,18 @@ router.get('/:cueId', async (req, res) => {
 							json = encodeVibrate(action)
 							break
 						default:
+							console.log('No action type!')
 							break
 					}
 
 					if (json) {
 						app.io.emit('json emission', json)
+						res.sendStatus(200)
 					} else {
 						console.log('Error! json was null when sending over socket')
 						res.sendStatus(500)
-						return
 					}
 				})
-				res.sendStatus(200)
 			} else {
 				res.sendStatus(404)
 			}

@@ -4,6 +4,7 @@ import models from '../models'
 import insertCue from './lib/insertCue'
 import insertActionType from './lib/insertActionType'
 import insertShow from './lib/insertShow'
+import insertVibrationActionType from './lib/insertVibrationActionType'
 import insertDevice from './lib/insertDevice'
 import insertAsset from './lib/insertAsset'
 import insertAssetType from './lib/insertAssetType'
@@ -30,7 +31,7 @@ describe('Test /play route', () => {
 		})
 		const showId = await insertShow()
 		cueId = await insertCue(showId)
-		actionTypeId = await insertActionType(showId)
+		actionTypeId = await insertVibrationActionType(showId)
 		deviceId = await insertDevice(showId)
 		assetTypeId = await insertAssetType()
 		assetId = await insertAsset(assetTypeId, showId)

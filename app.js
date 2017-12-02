@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import models from './models'
 import moment from 'moment'
 import fileUpload from 'express-fileupload'
-import { MAX_FILE_SIZE } from './config'
+import { MAX_FILE_SIZE, USER_FILE_STORAGE_PATH } from './config'
 
 import actions from './routes/actions'
 import upload from './routes/upload'
@@ -15,7 +15,7 @@ import shows from './routes/shows'
 import users from './routes/users'
 import play from './routes/play'
 
-import sendImage from './lib/sendImage'
+import encodeImage from './lib/encodeImage'
 let app = express()
 
 // set up the server using Node's standard HTTP server so that Socket.io can use it too
@@ -48,7 +48,7 @@ io.on('connection', (socket) => {
 			})
 			.then((asset) => {
 				// send the splash screen to the client
-				sendImage(asset, socketId)
+				io.to(socketId).emit('json emission', encodeImage(asset))
 			})
 		})
 	} else {
@@ -98,6 +98,9 @@ app.use('/show', shows)
 app.use('/user', users)
 app.use('/upload', upload)
 app.use('/play', play)
+
+// Static file serving
+app.use('/public', express.static(USER_FILE_STORAGE_PATH.substring(2))) // substring so that the './' at the start of the path is removed
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

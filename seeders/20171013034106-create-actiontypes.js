@@ -27,6 +27,11 @@ module.exports = {
 			name: 'Vibrate Phone',
 			createdAt: new Date(),
 			updatedAt: new Date()
+		}, {
+			id: 6,
+			name: 'Open Link',
+			createdAt: new Date(),
+			updatedAt: new Date()
 		}])
 	},
 

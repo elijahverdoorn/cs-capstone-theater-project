@@ -4,6 +4,7 @@ import encodeMedia from '../lib/encodeMedia'
 import actionTypes from '../lib/actionTypes'
 import { app } from '../app'
 import encodeAudio from '../lib/encodeAudio'
+import encodeLink from '../lib/encodeLink'
 import encodeVideo from '../lib/encodeVideo'
 import encodeImage from '../lib/encodeImage'
 import encodeVibrate from '../lib/encodeVibrate'
@@ -70,6 +71,10 @@ router.get('/:cueId', async (req, res) => {
 						case actionTypes.vibratePhone:
 							console.log('Action type: Vibrate Phone')
 							json = encodeVibrate(action)
+							break
+						case actionTypes.openLink:
+							console.log('Action type: Open link')
+							json = encodeLink(action)
 							break
 						default:
 							console.log('No action type!')

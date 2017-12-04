@@ -108,6 +108,7 @@ router.patch('/:actionId', async (req, res) => {
 		res.sendStatus(404)
 		return
 	}
+
 	action.address = req.query.address || action.address
 	action.duration = req.query.duration || action.duration
 	action.name = req.query.name || action.name
@@ -115,10 +116,11 @@ router.patch('/:actionId', async (req, res) => {
 	action.cueId = req.query.cueId || action.cueId
 	action.actionTypeId = req.query.actionTypeId || action.actionTypeId
 	action.deviceId = req.query.deviceId || action.deviceId
-	action.actionId = req.query.assetid || action.assetId
+	action.assetId = req.query.assetId || action.assetId
 	action.redValue = req.query.redValue || action.redValue
 	action.greenValue = req.query.greenValue || action.greenValue
 	action.blueValue = req.query.blueValue || action.blueValue
+
 	await action.save()
 	res.sendStatus(202)
 })

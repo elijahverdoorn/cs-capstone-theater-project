@@ -51,7 +51,7 @@ describe('Test /actions route', () => {
 		expect(response.body[0].id).toBe(1)
 	}),
 
-	test('It should respond 201 to POST', async () => {
+	test('It should respond 200 to POST', async () => {
 		const newActionName = 'new action'
 		const newActionDescription = 'newActionDescription'
 		const response = await request(app)
@@ -63,7 +63,7 @@ describe('Test /actions route', () => {
 				actionTypeId: actionTypeId,
 				deviceId: deviceId
 			})
-		expect(response.statusCode).toBe(201)
+		expect(response.statusCode).toBe(200)
 	})
 
 	test('It should insert a record on POST', async () => {

@@ -35,14 +35,14 @@ describe('Test /shows route', () => {
 		expect(response.body[0].director).toBe(testShowDirector)
 	}),
 
-	test('It should respond 201 to POST', async () => {
+	test('It should respond 200 to POST', async () => {
 		const response = await request(app)
 			.post('/shows')
 			.query({
 				name: 'Test show',
 				director: 'Elijah'
 			})
-		expect(response.statusCode).toBe(201)
+		expect(response.statusCode).toBe(200)
 	})
 
 	test('It should insert a record on POST', async () => {

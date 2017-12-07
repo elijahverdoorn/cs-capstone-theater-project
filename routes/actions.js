@@ -45,9 +45,9 @@ router.get('/:actionId?', async (req, res) => {
  * @apiParam {String} name The name of the action
  * @apiParam {String} description A description of the action
  * @apiParam {Number} assetId The asset that this action is associated with, if any
- * @apiParam {Number} redValue If this is a background color changing action, the value of red that should be used. Should be between 0-255.
- * @apiParam {Number} greenValue If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
- * @apiParam {Number} blueValue If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
+ * @apiParam {Number} redValue (optional) If this is a background color changing action, the value of red that should be used. Should be between 0-255.
+ * @apiParam {Number} greenValue (optional) If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
+ * @apiParam {Number} blueValue (optional) If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
  *
  * @apiError 500 Failed to create record in database
  *
@@ -84,10 +84,10 @@ router.post('/', async (req, res) => {
  * @apiParam {String} name (optional) The name of the action
  * @apiParam {String} description (optional) A description of the action
  * @apiParam {Number} duration (optional) Duration, in seconds, of the action
- * @apiParam {Number} assetId The asset that this action is associated with, if any
- * @apiParam {Number} redValue If this is a background color changing action, the value of red that should be used. Should be between 0-255.
- * @apiParam {Number} greenValue If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
- * @apiParam {Number} blueValue If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
+ * @apiParam {Number} assetId (optional) The asset that this action is associated with, if any
+ * @apiParam {Number} redValue (optional) If this is a background color changing action, the value of red that should be used. Should be between 0-255.
+ * @apiParam {Number} greenValue (optional) If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
+ * @apiParam {Number} blueValue (optional) If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
  *
  * @apiSuccess 202 The record was updated
  *

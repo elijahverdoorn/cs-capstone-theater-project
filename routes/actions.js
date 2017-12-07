@@ -40,18 +40,20 @@ router.get('/:actionId?', async (req, res) => {
  * @apiName PostAction
  * @apiGroup Action
  *
- *
  * @apiParam {String} address The address of the action
  * @apiParam {String} name The name of the action
  * @apiParam {String} description A description of the action
+ * @apiParam {Number} duration The duration that the action should last for
+ *
  * @apiParam {Number} assetId The asset that this action is associated with, if any
- * @apiParam {Number} redValue If this is a background color changing action, the value of red that should be used. Should be between 0-255.
- * @apiParam {Number} greenValue If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
- * @apiParam {Number} blueValue If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
+ * @apiParam {Number} actionTypeId The type of this action
+ * @apiParam {Number} redValue (optional) If this is a background color changing action, the value of red that should be used. Should be between 0-255.
+ * @apiParam {Number} greenValue (optional) If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
+ * @apiParam {Number} blueValue (optional) If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
  *
  * @apiError 500 Failed to create record in database
  *
- * @apiSuccess 201 The record was created
+ * @apiSuccess 201 The record was created, body contains JSON with id of created record
  */
 router.post('/', async (req, res) => {
 	let actions = await models.Actions.create({
@@ -70,7 +72,8 @@ router.post('/', async (req, res) => {
 	.error(() => {
 		res.sendStatus(500)
 	})
-	res.sendStatus(201)
+
+	res.send( { id: actions.get('id') } )
 })
 
 
@@ -80,14 +83,15 @@ router.post('/', async (req, res) => {
  * @apiGroup Action
  *
  * @apiParam {Number} actionId Action's unique ID
+ * @apiParam {Number} actionTypeId (optional) The ID of the type of this action
  * @apiParam {String} address (optional) The address of the action
  * @apiParam {String} name (optional) The name of the action
  * @apiParam {String} description (optional) A description of the action
  * @apiParam {Number} duration (optional) Duration, in seconds, of the action
- * @apiParam {Number} assetId The asset that this action is associated with, if any
- * @apiParam {Number} redValue If this is a background color changing action, the value of red that should be used. Should be between 0-255.
- * @apiParam {Number} greenValue If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
- * @apiParam {Number} blueValue If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
+ * @apiParam {Number} assetId (optional) The asset that this action is associated with, if any
+ * @apiParam {Number} redValue (optional) If this is a background color changing action, the value of red that should be used. Should be between 0-255.
+ * @apiParam {Number} greenValue (optional) If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.
+ * @apiParam {Number} blueValue (optional) If this is a background color changing action, the value of blue that should be used. Should be between 0-255.
  *
  * @apiSuccess 202 The record was updated
  *

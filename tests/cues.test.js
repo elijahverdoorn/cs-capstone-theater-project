@@ -54,7 +54,7 @@ describe('Test /cues route', () => {
 		expect(response.body[0].id).toBe(1)
 	}),
 
-	test('It should respond 201 to POST', async () => {
+	test('It should respond 200 to POST', async () => {
 		const newCueName = 'new cue'
 		const newCueDescription = 'newCueDescription'
 		const response = await request(app)
@@ -65,7 +65,7 @@ describe('Test /cues route', () => {
 				sequenceNum: cueSequenceNum,
 				showId: showId
 			})
-		expect(response.statusCode).toBe(201)
+		expect(response.statusCode).toBe(200)
 	})
 
 	test('It should insert a record on POST', async () => {

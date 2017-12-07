@@ -39,6 +39,8 @@ router.get('/:showId?', async (req, res) => {
  * @apiParam {String} director Name of the show's director
  * @apiParam {Number} splashScreenAssetId The id of the asset that is used as the splash screen for this show
  *
+ * @apiSuccess 201 Record created, body contains ID of new record
+ *
  * @apiError 500 Error creating show. Show record not created.
  */
 router.post('/', async (req, res) => {
@@ -50,7 +52,8 @@ router.post('/', async (req, res) => {
 	.error(() => {
 		res.sendStatus(500)
 	})
-	res.sendStatus(201)
+
+	res.send( { id: shows.get('id') } )
 })
 
 /**

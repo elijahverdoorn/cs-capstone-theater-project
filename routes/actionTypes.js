@@ -46,7 +46,8 @@ router.post('/', async (req, res) => {
 	.error(() => {
 		res.sendStatus(500)
 	})
-	res.sendStatus(201)
+
+	res.send( { id: actionTypes.get('id') } )
 })
 
 /**

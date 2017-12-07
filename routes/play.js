@@ -49,6 +49,8 @@ router.get('/:cueId', async (req, res) => {
 				actions.forEach((action) => {
 					let json = ''
 
+					console.log(action.dataValues.ActionTypeId)
+
 					switch (action.dataValues.ActionTypeId) {
 						// do some stuff based on the action type of this action
 						case actionTypes.changeBackground:

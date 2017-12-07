@@ -5,7 +5,10 @@ module.exports = (sequelize, DataTypes) => {
 		name: DataTypes.STRING,
 		path: DataTypes.STRING,
 		assetTypeId: DataTypes.STRING,
-		showId: DataTypes.INTEGER
+		showId: DataTypes.INTEGER,
+		redValue: DataTypes.INTEGER,
+		greenValue: DataTypes.INTEGER,
+		blueValue: DataTypes.INTEGER
 	}, {
 		freezeTableName: true,
 		timestamps: true

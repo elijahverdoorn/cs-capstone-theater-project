@@ -22,7 +22,7 @@ module.exports = {
 		}, {
 			id: 4,
 			name: 'MP3 Sound',
-			mime: 'audio/mpeg3',
+			mime: 'audio/mp3',
 			createdAt: new Date(),
 			updatedAt: new Date()
 		}, {

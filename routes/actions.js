@@ -44,6 +44,7 @@ router.get('/:actionId?', async (req, res) => {
  * @apiParam {String} address The address of the action
  * @apiParam {String} name The name of the action
  * @apiParam {String} description A description of the action
+ * @apiParam {Number} duration The duration that the action should last for
  * @apiParam {Number} assetId The asset that this action is associated with, if any
  * @apiParam {Number} redValue (optional) If this is a background color changing action, the value of red that should be used. Should be between 0-255.
  * @apiParam {Number} greenValue (optional) If this is a background color changing action, the value of greenthat should be used. Should be between 0-255.

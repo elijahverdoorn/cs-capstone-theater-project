@@ -71,7 +71,7 @@ router.get('/:cueId?', async (req, res) => {
  *
  * @apiError 500 There was an error creating this cue. Cue has not been created.
  *
- * @apiSuccess 201 The cue has been createdmodifying.
+ * @apiSuccess 201 The cue has been created, with body containing ID of created cue
  */
 router.post('/', async (req, res) => {
 	let cues = await models.Cues.create({
@@ -83,7 +83,9 @@ router.post('/', async (req, res) => {
 	.error(() => {
 		res.sendStatus(500)
 	})
-	res.sendStatus(201)
+
+
+	res.send( { id: cues.get('id') } )
 })
 
 /**

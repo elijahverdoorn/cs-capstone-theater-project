@@ -53,7 +53,7 @@ router.get('/:actionId?', async (req, res) => {
  *
  * @apiError 500 Failed to create record in database
  *
- * @apiSuccess 201 The record was created
+ * @apiSuccess 201 The record was created, body contains JSON with id of created record
  */
 router.post('/', async (req, res) => {
 	let actions = await models.Actions.create({
@@ -72,7 +72,8 @@ router.post('/', async (req, res) => {
 	.error(() => {
 		res.sendStatus(500)
 	})
-	res.sendStatus(201)
+
+	res.send( { id: actions.get('id') } )
 })
 
 
